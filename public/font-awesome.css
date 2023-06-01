@@ -1,0 +1,115 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #72858f;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  height: 80px;
+  font-size: 20px;
+  box-shadow: 0 7px 15px 0 rgb(0, 0, 0);
+}
+
+.logo-1 {
+  width: 100px;
+  display: flex;
+  height: 70px;
+  float: left;
+}
+.brand {
+  display: flex;
+  flex-direction: row;
+}
+.navigation {
+  text-align: center;
+  margin-left: 10px;
+}
+.navigation > li {
+  list-style-type: none;
+  padding: 15px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.navigation li:last-child {
+  margin-right: 0;
+}
+
+.navigation > li > a {
+  color: white;
+  font-size: 15px;
+  font-family: inherit;
+  text-decoration: none;
+  text-transform: capitalize;
+  float: center;
+  margin-right: 60px;
+}
+.navigation > li > a:hover {
+  color: #f1a01d;
+  transition: all 0.3s ease-in-out;
+}
+.active {
+  background-color: #f1a01d;
+  border-radius: 50px;
+  color: white;
+  padding: 15px;
+}
+.active:hover {
+  color: white !important;
+}
+
+/* content1 */
+.event {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 10%;
+}
+
+.event-image {
+  width: 200px; /* Sesuaikan ukuran gambar */
+  height: auto;
+  margin-right: 20px; /* Sesuaikan jarak antara gambar dan keterangan */
+}
+
+.event-info {
+  flex: 1;
+}
+
+.event-info h2 {
+  margin: 0 0 10px; /* Sesuaikan margin top dan bottom */
+  font-size: 20px;
+}
+
+.event-info p {
+  margin: 0;
+}
+/* 
+JUDUL CSS */
+.pr1 {
+  display: flex;
+  width: 40%;
+  height: auto;
+  align-items: center;
+}
+.h1-pro {
+  display: flex;
+  width: 30%;
+  margin-left: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #fff;
+}
+.event-image {
+  border-style: hidden;
+}
+
+.event-image3 {
+  border-style: hidden;
+}
