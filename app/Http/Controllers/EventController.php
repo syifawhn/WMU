@@ -57,25 +57,23 @@ class EventController extends Controller
             'sisa' => 'required',
         ]);
 
+        // Simpan data event
+        $event = new Event();
+        $event->penyelenggara = $validatedData['penyelenggara'];
+        $event->nama_event = $validatedData['nama_event'];
+        $event->jadwal_event = $validatedData['jadwal_event'];
+        $event->alamat_event = $validatedData['alamat_event'];
+        $event->harga = $validatedData['harga'];
+        $event->dp = $validatedData['dp'];
+        $event->sisa = $validatedData['sisa'];
+        $event->save();
+
+        // Simpan data detail event
         $validatedTeam = $request->validate([
             'team' => 'required|array',
             'team.*' => 'required|string|distinct'
         ]);
 
-        Event::create($validatedData);
-
-        // Simpan data event
-        $event = new Event();
-        $event->penyelenggara = $request->input('penyelenggara');
-        $event->nama_event = $request->input('nama_event');
-        $event->jadwal_event = $request->input('jadwal_event');
-        $event->alamat_event = $request->input('alamat_event');
-        $event->harga = $request->input('harga');
-        $event->dp = $request->input('dp');
-        $event->sisa = $request->input('sisa');
-        $event->save();
-
-        // Simpan data detail event
         foreach ($request->input('property') as $propertyId) {
             foreach (explode(',', $validatedTeam['team'][0]) as $teamId) {
                 $detailEvent = new DetailEvent();
@@ -87,8 +85,8 @@ class EventController extends Controller
         }
 
         return redirect('event')->with('success', 'Data Event Berhasil Disimpan');
-        // return redirect('event')->with('success', 'Data');
     }
+
 
     /**
      * Display the specified resource.
@@ -110,8 +108,7 @@ class EventController extends Controller
         // ]);
         // Event::show($request);
         return view('event.view', [
-            'event' => $event,
-            'details' => DetailEvent::where('id_event', 23)->get()
+            'event' => $event            
         ]);
     }
 
@@ -123,11 +120,17 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        $event->load('properties', 'teams');
+
         return view('event/edit', [
-            'event' => $event
+            'event' => $event,
+            'dataProperti' => Property::all(),
+            'dataTeam' => Team::all(),
         ]);
     }
+
+
+
 
     /**
      * Update the specified resource in storage.
@@ -138,15 +141,43 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
         $validatedData = $request->validate([
+            'penyelenggara' => 'required',
             'nama_event' => 'required',
+            'jadwal_event' => 'required',
+            'alamat_event' => 'required',
+            'harga' => 'required',
+            'dp' => 'required',
+            'sisa' => 'required',
         ]);
 
-        event::where('id', $event->id)->update($validatedData);
+        // Perbarui data event yang ada
+        $event->update($validatedData);
 
-        return redirect('event')->with('success', 'event berhasil ditambahkan');
+        // Simpan atau perbarui data detail event
+        $validatedTeam = $request->validate([
+            'team' => 'required|array',
+            'team.*' => 'required|string|distinct'
+        ]);
+
+        // Hapus semua data detail event terkait event ini
+        DetailEvent::where('id_event', $event->id)->delete();
+
+        // Simpan data detail event yang baru
+        foreach ($request->input('property') as $propertyId) {
+            foreach (explode(',', $validatedTeam['team'][0]) as $teamId) {
+                $detailEvent = new DetailEvent();
+                $detailEvent->id_event = $event->id;
+                $detailEvent->id_property = $propertyId;
+                $detailEvent->id_team = $teamId;
+                $detailEvent->save();
+            }
+        }
+        
+
+        return redirect('event')->with('success', 'Data Event Berhasil Disimpan');
     }
+
 
     /**
      * Remove the specified resource from storage.

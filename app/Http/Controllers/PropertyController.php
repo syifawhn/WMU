@@ -47,15 +47,19 @@ class PropertyController extends Controller
             'foto_property' => 'image|file|max:1024',
         ]);
 
-        Property::create($validatedData);
-
-        return redirect('property')->with('success', 'Data property berhasil ditambahkan');
-
         if ($request->file('foto_property')) {
             $validatedData['foto_property'] = $request->file('foto_property')->store('property-images');
         }
 
+
+        Property::create($validatedData);
+
+        return redirect('property')->with('success', 'Data property berhasil ditambahkan');
+
+        
         // Property::create($validatedData);
+
+
 
     }
 

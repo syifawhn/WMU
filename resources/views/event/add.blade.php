@@ -55,28 +55,22 @@
                         {{-- <div id="teamTableContainer"></div> --}}
                     </div>
                 </div>
-                {{-- <div class="row mb-3">
-                    <label for="" class="col-sm-2 col-form-label">Foto</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" name="foto">
-                    </div>
-                </div> --}}
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Harga</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="harga">
+                        <input type="number" class="form-control" name="harga" id="harga" oninput="calculateSisa()">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">DP</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="dp">
+                        <input type="number" class="form-control" name="dp" id="dp" oninput="calculateSisa()">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Sisa</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="sisa">
+                        <input type="number" class="form-control" name="sisa" id="sisa" readonly>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -86,6 +80,13 @@
     </div>
 
     <script>
+        function calculateSisa() {
+            var harga = parseInt(document.getElementById('harga').value) || 0;
+            var dp = parseInt(document.getElementById('dp').value) || 0;
+            var sisa = harga - dp;
+
+            document.getElementById('sisa').value = sisa;
+        }
         var propertyList = [];
         var teamList = [];
 

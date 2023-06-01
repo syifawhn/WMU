@@ -14,4 +14,27 @@ class Event extends Model
     {
         return $this->belongsToMany(DetailEvent::class, 'detail_events', 'id_event');
     }
+
+    public function detailProperty()
+    {
+        return $this->belongsToMany(Property::class, 'detail_events', 'id_event', 'id_property');
+    }
+
+
+    public function detailTeam(){
+        return $this->belongsToMany(Team::class, 'detail_events', 'id_event', 'id_team');
+    }
+
+    public function properties()
+    {
+        return $this->belongsToMany(Property::class, 'detail_events', 'id_event', 'id_property');
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'detail_events', 'id_event', 'id_team');
+    }
+    
+
+
 }

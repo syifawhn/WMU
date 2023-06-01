@@ -1,13 +1,43 @@
 @extends('layout/master')
 @section('title', 'View Event')
 @section('content')
+
+    <style>
+        @media print {
+            .sidebar {
+                display: none;
+            }
+
+            .print-button {
+                display: none;
+            }
+
+            .table-responsive {
+                overflow-x: unset;
+            }
+
+            .table {
+                display: table;
+            }
+
+            .table tr {
+                display: table-row;
+            }
+
+            .table th,
+            .table td {
+                display: table-cell;
+            }
+        }
+
+        .print-view .hide-on-print {
+            display: none;
+        }
+    </style>
     <div class="card">
         <div class="card-body">
-            {{-- <h3><span class=' text-black'> DETAIL EVENT</span></h3>
-            <br> --}}
-            {{-- @php
-                dd($event->client->nama_client);
-            @endphp --}}
+            <h3 class="print-view"><span class="text-black"> Waskita Media Utama</span></h3>
+            <br>
             <table class="table">
                 <tr>
                     <th>Penyelenggara</th>
@@ -25,39 +55,123 @@
                     <th>Alamat Event</th>
                     <td>{{ $event->alamat_event }}</td>
                 </tr>
-                <tr>
-                    <th>Properti dan Tim</th>
-                    <td>
-                        @foreach ($details as $item)
-                            <div class="badge badge-primary">
-                                {{ $item->property->nama_property }} ({{ $item->team->nama }})
-                            </div>
-                        @endforeach
-                    </td>
-                </tr>
-                <tr>
+                <tr class="hide-on-print">
                     <th>Biaya</th>
-                    <td>{{ $event->biaya }}</td>
+                    <td>{{ $event->harga }}</td>
                 </tr>
-                <tr>
+                <tr class="hide-on-print">
                     <th>DP</th>
                     <td>{{ $event->dp }}</td>
                 </tr>
-                {{-- <tr>
-                    <th>catatan</th>
-                    <td>{{ $event->catatan }}</td>
-                </tr> --}}
-                {{-- <tr>
-                    <th>Karyawan</th>
-                    <td>{{ $event->$karyawan }}</td>
-                </tr> --}}
-
+                <tr class="hide-on-print">
+                    <th>Sisa</th>
+                    <td>{{ $event->sisa }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>
+                        @if ($event->sisa == 0)
+                            <span class="badge badge-success">Lunas</span>
+                        @else
+                            <span class="badge badge-danger">Belum Lunas</span>
+                        @endif
+                    </td>
+                </tr>
             </table>
-            <div class="card-title">
-                <div class="d-flex-justify content-between">
-                    <a class="btn btn-primary" href="{{ route('event.index') }}">Kembali</a>
-                    <a class="btn btn-secondary" href="{{ route('event.index') }}">Cetak Detail</a>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Properti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($event->detailProperty as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama_property }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    @endsection
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Karyawan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($event->detailTeam as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                {{-- <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-primary print-button" href="{{ route('event.index') }}">Kembali</a>
+                        <button class="btn btn-secondary print-button" onclick="printLaporan()">Cetak Detail Event</button>
+                        <button class="btn btn-info print-button" onclick="window.print()">Cetak Laporan Event</button>
+                    </div>
+                </div> --}}
+
+            </div>
+            {{-- <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-primary print-button" href="{{ route('event.index') }}">Kembali</a>
+                    <button class="btn btn-secondary print-button" onclick="printLaporan()">Cetak Detail Event</button>
+                    <button class="btn btn-info print-button" onclick="window.print()">Cetak Laporan Event</button>
+                </div>
+            </div> --}}
+
+            <div class="card-footer">
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                        <a class="btn btn-primary print-button" href="{{ route('event.index') }}">Kembali</a>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-secondary print-button" onclick="printLaporan()">Cetak Detail Event</button>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-info print-button" onclick="window.print()">Cetak Laporan Event</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {{-- <a class="btn btn-primary print-button" href="{{ route('event.index') }}">Kembali</a> --}}
+    </div>
+
+    <script>
+        function printLaporan() {
+            var elementsToHide = document.querySelectorAll('.hide-on-print');
+            for (var i = 0; i < elementsToHide.length; i++) {
+                elementsToHide[i].style.display = 'none';
+            }
+
+            window.print();
+
+            for (var i = 0; i < elementsToHide.length; i++) {
+                elementsToHide[i].style.display = 'table-row';
+            }
+        }
+    </script>
+
+@endsection

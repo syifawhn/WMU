@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PropertyController;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('welcome');
 });
 
 
@@ -59,11 +60,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('event', [EventController::class, 'index'])->name('event.index');
     Route::get('event/create', [EventController::class, 'create'])->name('event.create');
     Route::get('event/edit/{event}', [EventController::class, 'edit'])->name('event.edit');
-    Route::post('event/update/{event}', [EventController::class, 'update'])->name('event.update');
+    Route::patch('event/update/{event}', [EventController::class, 'update'])->name('event.update');
     Route::get('event/view/{event}', [ViewController::class, 'view'])->name('event.view');
     Route::post('sendEvent', [EventController::class, 'store'])->name('event.store');
     Route::get('/delete3/{event}', [EventController::class, 'delete3'])->name('event.delete3');
     Route::get('event/show/{event}', [EventController::class, 'show'])->name('event.show');
+
+    //landingpage
+    Route::get('welcome', [LandingPageController::class, 'index'])->name('welcome.index');
+    Route::get('teams', [LandingPageController::class, 'team'])->name('teams');
+    Route::get('properti', [LandingPageController::class, 'property'])->name('properti');
     
 });
 

@@ -15,7 +15,7 @@
                         <th scope="col">Jadwal Event</th>
                         {{-- <th scope="col">Alamat Event</th> --}}
                         <th scope="col">Status Pembayaran</th>
-                        {{-- <th scope="col">Aksi</th> --}}
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,14 +25,18 @@
                             <td>{{ $item->penyelenggara }}</td>
                             <td>{{ $item->nama_event }}</td>
                             <td>{{ $item->jadwal_event }}</td>
-                            <td></td>
                             <td>
-
+                                @if ($item->sisa == 0)
+                                    <span class="badge badge-success">Lunas</span>
+                                @else
+                                    <span class="badge badge-danger">Belum Lunas</span>
+                                @endif
+                            </td>
+                            <td>
                                 <a href="/event/show/{{ $item->id }}" class="btn btn-info">Show</a>
                                 <a href="/event/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
                                 <a href="/delete3/{{ $item->id }}" class="btn btn-danger">Delete</a>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>

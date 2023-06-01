@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <div class="brand-wrapper">
                                 <img src="dist/img/WMU.png" alt="logo" class="logo"
-                                    style="width: 100x; height: 100x;">
+                                    style="width: 200px; height: 100px;">
                                 {{-- <span class="brand-name">WASKITA MEDIA UTAMA</span> --}}
                             </div>
                             {{-- <p class="login-card-description">LOGIN ADMIN</p> --}}
