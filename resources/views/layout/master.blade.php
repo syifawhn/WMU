@@ -58,7 +58,7 @@
             <a href="../../index3.html" class="brand-link">
                 <img src="{{ asset('WMU.png') }}" alt="WMU Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Waskita Media Utama</span>
+                <span class="brand-text font-weight-light">WMU</span>
             </a>
 
             <!-- Sidebar -->
@@ -90,7 +90,8 @@
                         <li class="nav-item">
                             <a href="{{ route('event.index') }}"
                                 class="nav-link {{ request()->is('event*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
+                                <i class="nav-icon fa fa-bookmark" aria-hidden="true"></i>
                                 <p>
                                     Event
                                 </p>
@@ -99,7 +100,8 @@
                         <li class="nav-item">
                             <a href="{{ route('property.index') }}"
                                 class="nav-link {{ request()->is('property*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
+                                <i class="nav-icon fa fa-wrench" aria-hidden="true"></i>
                                 <p>
                                     Property
                                 </p>
@@ -108,7 +110,7 @@
                         <li class="nav-item">
                             <a href="{{ route('team.index') }}"
                                 class="nav-link {{ request()->is('team*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-users" aria-hidden="true"></i>
                                 <p>
                                     Team
                                 </p>
@@ -117,7 +119,7 @@
                         <li class="nav-item">
                             <a href="{{ route('divisi.index') }}"
                                 class="nav-link {{ request()->is('divisi*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-user-plus" aria-hidden="true"></i>
                                 <p>
                                     Divisi
                                 </p>
