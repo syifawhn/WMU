@@ -8,33 +8,62 @@
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Penyelenggara</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="penyelenggara">
+                        <input type="text" class="form-control @error('penyelenggara') is-invalid @enderror"
+                            name="penyelenggara" value="{{ old('penyelenggara') }}">
+                        @error('penyelenggara')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Nama Event</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_event">
+                        <input type="text" class="form-control @error('nama_event') is-invalid @enderror"
+                            name="nama_event" value="{{ old('nama_event') }}">
+                        @error('nama_event')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Jadwal Event</label>
                     <div class="col-sm-10">
-                        <input type="date" class="form-control" name="jadwal_event">
+                        <input type="date" class="form-control @error('jadwal_event') is-invalid @enderror"
+                            name="jadwal_event" value="{{ old('jadwal_event') }}">
+                        @error('jadwal_event')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Alamat Event</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="alamat_event">
+                        <input type="text" class="form-control @error('alamat_event') is-invalid @enderror"
+                            name="alamat_event" value="{{ old('alamat_event') }}">
+                        @error('alamat_event')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Property</label>
                     <div class="col-sm-10">
-                        <select class="form-control select2" id="propertySelect" onchange="loadPropertyTable()"
-                            name="property[]" multiple>
-                            <option value="">Pilih Property</option>
+                        <select class="form-control select2 @error('property') is-invalid @enderror" id="propertySelect"
+                            onchange="loadPropertyTable()" name="property[]" multiple>
+                            @error('property')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            {{-- <option value="">Pilih Property</option> --}}
                             @foreach ($dataProperti as $item)
                                 <option value="{{ $item->id }}">{{ $item->nama_property }}</option>
                             @endforeach
@@ -46,8 +75,14 @@
                 <div class="row mb-3">
                     <label for="" class="col-sm-2 col-form-label">Team</label>
                     <div class="col-sm-10">
-                        <select class="form-control select2" id="teamSelect" onchange="loadTeamTable()" multiple>
-                            <option value="">Pilih Team</option>
+                        <select class="form-control select2 @error('team') is-invalid @enderror" id="teamSelect"
+                            onchange="loadTeamTable()" multiple>
+                            @error('team')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            {{-- <option value="">Pilih Team</option> --}}
                             @foreach ($dataTeam as $item)
                                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
                             @endforeach

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\cr;
+use App\Models\Team;
+use App\Models\Property;
 use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
@@ -15,16 +17,20 @@ class LandingPageController extends Controller
     public function index()
     {
         //
-        return view('welcome');
+        return view('landingpage/index', [
+            'foto' => Team::take(6)->get(),
+            'pro' => property::take(6)->get()
+        ]);
+        
     }
 
 
     public function property(){
-        return view('properti');
+        return view('propertiLP');
     }
     
     public function team(){
-        return view('team');
+        return view('teamLP');
     }
 
     /**

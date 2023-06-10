@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Admin Endless Creative Production</title>
-    <link rel="icon" href="/img/endlesss logo.jpg">
+    <title>Login Admin Waskita Media Utama</title>
+    <link rel="icon" href="dist/img/WMU.png">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -18,10 +18,6 @@
         <div class="container">
             <div class="card login-card text-center">
                 <div class="row no-gutters">
-                    {{-- <div class="col-md-5">
-                        <img src="dist/img/WMU.png" alt="login" class="login-card-img"
-                            style="width: 100px; height: 100px;">
-                    </div> --}}
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <div class="card-body">
@@ -64,7 +60,6 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
             </div>
         </div>

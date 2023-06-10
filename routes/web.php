@@ -21,8 +21,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('welcome.index');
 });
+
+
+
+Route::get('welcome', [LandingPageController::class, 'index'])->name('welcome.index');
 
 
 
@@ -67,9 +71,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('event/show/{event}', [EventController::class, 'show'])->name('event.show');
 
     //landingpage
-    Route::get('welcome', [LandingPageController::class, 'index'])->name('welcome.index');
-    Route::get('teams', [LandingPageController::class, 'team'])->name('teams');
-    Route::get('properti', [LandingPageController::class, 'property'])->name('properti');
+    
+    Route::get('teamLP', [LandingPageController::class, 'index'])->name('teamLP.index');
+    Route::get('propertiLP', [LandingPageController::class, 'index'])->name('propertiLP.index');
     
 });
 

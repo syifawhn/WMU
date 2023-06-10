@@ -16,7 +16,7 @@
                     <div class="col-sm-10">
                         <div class="form-group">
                             <select class="form-control select2" style="width: 100%;" name="id_divisi">
-                                <option>Pilih Divisi</option>
+                                {{-- <option>Pilih Divisi</option> --}}
                                 @foreach ($dataDivisi as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_divisi }}</option>
                                 @endforeach

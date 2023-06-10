@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registrasi Admin Endless Creative</title>
-    <link rel="icon" href="/img/endlesss logo.jpg">
+    <title>Registrasi Admin Waskita Media Utama</title>
+    <link rel="icon" href="dist/img/WMU.png">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -18,14 +18,17 @@
 <body>
     <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
         <div class="container">
-            <div class="card login-card">
+            <div class="card login-card text-center">
                 <div class="row no-gutters">
-                    <div class="col-md-5">
-                        <img src="/img/endlesss.jpg" alt="login" class="login-card-img">
-                    </div>
-                    <div class="col-md-7">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
                         <div class="card-body">
-                            <p class="login-card-description">REGISTRASI ADMIN ENDLESS CREATIVE</p>
+                            <div class="brand-wrapper">
+                                <img src="dist/img/WMU.png" alt="logo" class="logo"
+                                    style="width: 200px; height: 100px;">
+                            </div>
+
+                            {{-- <p class="login-card-description">REGISTRASI ADMIN </p> --}}
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="form-group">
