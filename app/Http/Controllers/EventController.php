@@ -45,45 +45,67 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    // Validasi data yang diterima dari formulir
-    $validatedData = $request->validate([
-        'penyelenggara' => 'required',
-        'nama_event' => 'required',
-        'jadwal_event' => 'required',
-        'alamat_event' => 'required',
-        'harga' => 'required',
-        'dp' => 'required',
-        'sisa' => 'required',
-    ]);
+    {
+        // Validasi data yang diterima dari formulir
+        $validatedData = $request->validate([
+            'penyelenggara' => 'required',
+            'nama_event' => 'required',
+            'jadwal_event' => 'required',
+            'alamat_event' => 'required',
+            'harga' => 'required',
+            'dp' => 'required',
+            'sisa' => 'required',
+        ]);
 
-    // Simpan data event
-    $event = new Event();
-    $event->penyelenggara = $validatedData['penyelenggara'];
-    $event->nama_event = $validatedData['nama_event'];
-    $event->jadwal_event = $validatedData['jadwal_event'];
-    $event->alamat_event = $validatedData['alamat_event'];
-    $event->harga = $validatedData['harga'];
-    $event->dp = $validatedData['dp'];
-    $event->sisa = $validatedData['sisa'];
-    $event->save();
+        // Simpan data event
+        $event = new Event();
+        $event->penyelenggara = $validatedData['penyelenggara'];
+        $event->nama_event = $validatedData['nama_event'];
+        $event->jadwal_event = $validatedData['jadwal_event'];
+        $event->alamat_event = $validatedData['alamat_event'];
+        $event->harga = $validatedData['harga'];
+        $event->dp = $validatedData['dp'];
+        $event->sisa = $validatedData['sisa'];
+        $event->save();
 
-    // Simpan data detail event
-    $teams = $request->input('team');
-    $properties = $request->input('property');
+        // Simpan data detail event
+        $validatedTeam = $request->validate([
+            'team' => 'required|array',
+            'team.*' => 'required|string|distinct'
+        ]);
 
-    foreach ($properties as $propertyId) {
-        $teamId = array_shift($teams); 
+        $propertyIds = $request->input('property');
+        $teamIds = explode(',', $validatedTeam['team'][0]);
 
-        $detailEvent = new DetailEvent();
-        $detailEvent->id_event = $event->id;
-        $detailEvent->id_property = $propertyId;
-        $detailEvent->id_team = $teamId;
-        $detailEvent->save();
+        $countProperties = count($propertyIds);
+        $countTeams = count($teamIds);
+        $maxIterations = max($countProperties, $countTeams);
+
+        for ($i = 0; $i < $maxIterations; $i++) {
+            $propertyId = isset($propertyIds[$i]) ? $propertyIds[$i] : null;
+            $teamId = isset($teamIds[$i]) ? $teamIds[$i] : null;
+
+            $detailEvent = new DetailEvent();
+            $detailEvent->id_event = $event->id;
+            $detailEvent->id_property = $propertyId;
+            $detailEvent->id_team = $teamId;
+            $detailEvent->save();
+        }
+
+        return redirect('event')->with('success', 'Data Event Berhasil Disimpan');
     }
 
-    return redirect('event')->with('success', 'Data Event Berhasil Disimpan');
-}
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -105,7 +127,7 @@ class EventController extends Controller
         // ]);
         // Event::show($request);
         return view('event.view', [
-            'event' => $event            
+            'event' => $event
         ]);
     }
 
@@ -160,20 +182,27 @@ class EventController extends Controller
         // Hapus semua data detail event terkait event ini
         DetailEvent::where('id_event', $event->id)->delete();
 
-        // Simpan data detail event yang baru
-        foreach ($request->input('property') as $propertyId) {
-            foreach (explode(',', $validatedTeam['team'][0]) as $teamId) {
-                $detailEvent = new DetailEvent();
-                $detailEvent->id_event = $event->id;
-                $detailEvent->id_property = $propertyId;
-                $detailEvent->id_team = $teamId;
-                $detailEvent->save();
-            }
+        $propertyIds = $request->input('property');
+        $teamIds = explode(',', $validatedTeam['team'][0]);
+
+        $countProperties = count($propertyIds);
+        $countTeams = count($teamIds);
+        $maxIterations = max($countProperties, $countTeams);
+
+        for ($i = 0; $i < $maxIterations; $i++) {
+            $propertyId = isset($propertyIds[$i]) ? $propertyIds[$i] : null;
+            $teamId = isset($teamIds[$i]) ? $teamIds[$i] : null;
+
+            $detailEvent = new DetailEvent();
+            $detailEvent->id_event = $event->id;
+            $detailEvent->id_property = $propertyId;
+            $detailEvent->id_team = $teamId;
+            $detailEvent->save();
         }
-        
 
         return redirect('event')->with('success', 'Data Event Berhasil Disimpan');
     }
+
 
 
     /**
@@ -187,11 +216,10 @@ class EventController extends Controller
         //
     }
 
-    public function delete3($id) {
+    public function delete3($id)
+    {
         $data = Event::find($id);
         $data->delete();
         return redirect()->route('event.index')->with('success', 'Event berhasil dihapus!');
     }
-
-    
 }
